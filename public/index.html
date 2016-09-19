@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title></title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+
+	<script src="js/app.js"></script>
+	<script src="js/controllers/myController.js"></script>
+	<script src="js/services/myService.js"></script>
+	
+	<!-- i am here -->
+	
+
+	
+	<style>
+		#info {
+			
+			height: 90px;
+			margin:10px;
+			border:1px solid black;
+			background-color: lightgray;
+			display:block;
+			padding-left:50px;
+		}
+		#date{
+			margin:10px;
+			padding-left:275px;
+		}
+		
+		#stdTable {
+			border:1px solid black;
+			border-collapse: collapse;
+		}
+		h2{
+			margin:40px;
+			background-color: lightPink;
+		}
+	</style>
+</head>
+
+<body ng-controller="myController">
+
+	<div class="container" id="date">
+		<div class="row">
+			<div  style="background-color:lightGray">
+				<span>Choose Date:</span><input type="date" id="date" ng-model="selectedDate">
+				<button id="getData" ng-click="getData(selectedDate)">Show StudentInfo</button>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<form id="info" >
+				<table class="table">
+					
+					<tr>
+						<td>Enter your ID:</td>
+						<td><input type="text" name="userID" ng-model="userID"/></td>
+					</tr>
+					<tr>
+						<td>Enter your Name:</td>
+						<td><input type="text" name="userName" ng-model="userName"/></td>
+					</tr>
+					<tr>
+						<td><button id="myBtn" ng-click="addStudents(userName,userID)">Submit</button></td>
+						<td></td>
+
+					</tr>
+
+				</table>
+				
+			</form>
+		</div>
+	</div>
+	<div>
+		<h2>Student Information</h2>
+		<div class="container">
+			<table class="table table-striped">
+				<tr>
+					<th>Date</th>
+					<th> ID</th>
+					<th>User Name</th>
+				</tr>
+				<tr ng-repeat="student in students">
+					<!--<td><label ng-bind="formatDate(student.timestamp) |  date:'MM/dd/yyyy'"></label></td>-->
+
+					<td>{{student.timestamp | date :  'MMMM, d, y'}}
+					<td>{{student.userID}}</td>
+					<td>{{student.userName}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+		
+	
+		
+
+	
+</body>
+</html>
