@@ -40,6 +40,9 @@
 			margin:40px;
 			background-color: lightPink;
 		}
+		#myBtn{
+			margin-top:5px;
+		}
 	</style>
 </head>
 
@@ -52,12 +55,13 @@
 				
 				<button id="showStudents"  ng-click="ShowStudentsInfo()">Show Students</button>
 				<button id="showAll"  ng-click="showAll()">Show All Students</button>
+				<button id="addStudents"  ng-click="addStudentInList()">Add Students</button>
 			</div>
 		</div>
 		
 	</div>
 
-	<div class="container">
+	<div class="container"  ng-show="studentInputActive">
 		<div class="row">
 			<form id="info" >
 				<table class="table">
@@ -71,9 +75,11 @@
 						<td>Enter your Name:</td>
 						<td><input type="text" name="userName" ng-model="userName"/></td>
 					</tr>
+
 					<tr>
+
 						<td><button id="myBtn" ng-click="addStudents(userName,userID)"
-						ng-show="dt == todayDate">Submit</button></td>
+						>Submit</button></td>
 						<td></td>
 
 					</tr>
@@ -84,7 +90,7 @@
 		</div>
 	</div>
 	<div>
-		<h2>Student Information</h2>
+		<h2>Students Information</h2>
 		<div class="container">
 			<table class="table table-striped">
 				<tr>

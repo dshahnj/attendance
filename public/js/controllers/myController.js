@@ -1,5 +1,14 @@
 app.controller("myController", function($scope, myService){
 	
+	// $(document).ready(function(){
+	// 	$(window).keydown(function(e){
+	// 		if(e.keyCode == 13){
+	// 			e.preventDefault();
+	// 			return false;
+	// 		}
+	// 	})
+	// });
+
 	$scope.userID = "";
 	$scope.userName= "";
 
@@ -10,17 +19,28 @@ app.controller("myController", function($scope, myService){
 	$scope.todayDate = $scope.getdmy($scope.selectedDate);
 
 	$scope.showAllRecords = false;
-    	
+    $scope.studentInputActive = false;
+
 	$scope.dt= "";
 
 	$scope.students = {};
 
+	$scope.addStudentInList = function(){
+		$scope.selectedDate = new Date();
+		$scope.ShowStudentsInfo();
+		$scope.studentInputActive = true;
+
+	}
+
     $scope.ShowStudentsInfo = function(){
+    	$scope.studentInputActive = false;
     	$scope.showAllRecords = false;
     	$scope.dt = $scope.getdmy($scope.selectedDate);
     }
 
     $scope.showAll = function(){
+    	
+    	$scope.studentInputActive = false;
     	$scope.showAllRecords = true;
     }
     
