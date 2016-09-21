@@ -3,24 +3,41 @@ app.controller("myController", function($scope, myService){
 	$scope.userID = "";
 	$scope.userName= "";
 
-	$scope.selectedDate = new Date();
+	$scope.pad = function pad(num, size){ return ('000000000' + num).substr(-size); }
+	$scope.getdmy = function getdmy(o) { return o.getFullYear() + "-" + $scope.pad((o.getMonth()+1),2) + "-" + $scope.pad(o.getDate(),2); }
+	
+	$scope.selectedDate= new Date();
+	$scope.todayDate = $scope.getdmy($scope.selectedDate);
 
-	$scope.students;
+	$scope.showAllRecords = false;
+    	
+	$scope.dt= "";
 
-    $scope.formatDate = function(date){
-          var dateOut = new Date(date);
-          return dateOut;
-    };
+	$scope.students = {};
+
+    $scope.ShowStudentsInfo = function(){
+    	$scope.showAllRecords = false;
+    	$scope.dt = $scope.getdmy($scope.selectedDate);
+    }
+
+    $scope.showAll = function(){
+    	$scope.showAllRecords = true;
+    }
     
 	$scope.addStudents = function(userName,userID){
 		$scope.userName = userName;
 		$scope.userID = userID;
 		
-		myService.addStudent(userName,userID,$scope.selectedDate).then(
+		myService.addStudent(userName,userID,$scope.dt).then(
 			function(response){
 				var result = response.data;
-	
+				
+				$scope.students.push(result);
+				
 				$scope.getData();
+				
+				$scope.userName = "";
+				$scope.userID = "";
 
 			}, function(error){
 
@@ -32,30 +49,27 @@ app.controller("myController", function($scope, myService){
 
 		myService.getData().then(
 			function(response){
-				$scope.myResponse = response.data;
-
+				
 				$scope.students = response.data;
-				
-				
-				/*console.log("selected date: "+ $scope.selectedDate);
-				console.log(typeof ($scope.selectedDate));
-				console.log(String($scope.selectedDate));
-				console.log("response date: "+ $scope.myResponse[0].timestamp);
-				console.log(typeof($scope.myResponse[0].timestamp));
-				for(var i = 0; i < $scope.myResponse.length; i++){
-					
-					
-
-				}*/
-
-
+//				
 			}, function(error){
 
 				console.log("Error: "+error);
+				
 			})
 	}
 
-
+	$scope.searchName = function(userID){
+		
+		console.log(userID);
+		for(var i = 0 ; i < $scope.students.length; i++){
+			if(userID == $scope.students[i].userID){
+				$scope.userName = $scope.students[i].userName;
+			}
+		}
+	}
+	
+	$scope.ShowStudentsInfo();
 	$scope.getData();
 
 })
