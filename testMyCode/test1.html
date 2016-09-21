@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<p id="demo"></p>
+<button onclick= "clearInterval(myInterval)">Stop</button>
+
+<script type="text/javascript">
+	var myInterval = setInterval(f,3000);
+
+	function f(){
+		var d = new Date();
+		document.getElementById("demo").innerHTML = d;
+	}
+	var x = "10";
+	var y = 10;
+
+	console.log(x == y);
+	console.log(x === y);
+
+	Date.prototype.nextDay = function(){
+	  var currentDate = this.getDate();
+	  return new Date(this.setDate(currentDate +1));
+	}
+
+	var date = new Date(); 
+	console.log(date); //Fri May 16 2014 20:47:14 GMT-0500 (Central Daylight Time)
+	console.log(date.nextDay());//Sat May 17 2014 20:47:14 GMT-0500 (Central Daylight Time)
+        
+	var myWord = "hello world";
+	function myRev(myWord){
+		return myWord.split('').reverse().join(''); //pinal
+	}
+	console.log(myRev("hello World"));
+	function duplicate(value){
+		return value.concat(value);
+	}
+	console.log(duplicate("darshan"));
+
+	//use of an object using "this" key word
+	var monica = {
+	  name: 'Monica Geller',
+	  total: 400,
+	  deductMonthlyFee: function(fee){
+	     this.total = this.total - fee;
+	     console.log(this.name + ' remaining balance is '+ this.total); 
+	  }
+	}
+	var rachel = {name: 'Rachel Green', total: 1500};
+	var rachelFeeDeductor = monica.deductMonthlyFee.bind(rachel, 200);
+
+	rachelFeeDeductor(); //"Rachel Green remaining balance is 1300"
+	rachelFeeDeductor(); //"Rachel Green remaining balance is 1100"
+
+// bind example
+	var myObj = {
+		name:'Darshan',
+		age:46,
+		showInfo: function(age){
+			console.log(this.name +" " + this.age);
+		}
+	}
+	myObj.showInfo();
+
+	// use showinfo function for another object
+	var yourObj = {name:'Mother',age:60};
+	var yourObjResult = myObj.showInfo.bind(yourObj,60);
+	console.log(yourObjResult); // returns function
+	yourObjResult(); // need to invoke it by adding ()
+
+// call 
+	var yourObj = myObj.showInfo.call(yourObj,40);
+</script>
+</body>
+</html>
